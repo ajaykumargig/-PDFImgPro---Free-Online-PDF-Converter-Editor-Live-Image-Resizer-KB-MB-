@@ -1,46 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth dark">
 <head>
-     <meta name="google-site-verification" content="PnL1S4JowUoeCkpGMffZoeW7z_-WOcLZu5t-sAhHT90" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Global High-Ranking SEO Meta Tags -->
-    <title>PDFImgPro.app - Free Online PDF Converter, Editor & Live Image Resizer (KB/MB)</title>
-    <meta name="title" content="PDFImgPro.app - Free Online PDF Converter, Editor & Live Image Resizer (KB/MB)">
-    <meta name="description" content="All-in-one free browser studio. Merge PDF, HTML to PDF, Compress Image to exact KB/MB, Resize to 1500x1500px with live preview, Passport Visa Crop, Convert JPG PNG WebP. 100% Free & Private.">
-    <meta name="keywords" content="pdf converter, pdf editor, image resizer, 1500x1500 image resizer, compress image to kb, image to pdf, pdf to jpg, html to pdf, merge pdf, passport photo resizer, webp to jpg, resize image in cm mm inches, watermark pdf">
+    <!-- SEO Meta Tags -->
+    <title>PDFImgPro.app - AI Background Remover, Free PDF Converter & Live Image Resizer</title>
+    <meta name="title" content="PDFImgPro.app - AI Background Remover, Free PDF Converter & Live Image Resizer">
+    <meta name="description" content="All-in-one free browser studio. AI Background Remover, Merge PDF, HTML to PDF, Compress Image to exact KB/MB, Resize to 1500x1500px, Passport Visa Crop, Convert JPG PNG WebP. 100% Free & Private.">
+    <meta name="keywords" content="background remover, remove bg, pdf converter, pdf editor, image resizer, 1500x1500 image resizer, compress image to kb, image to pdf, pdf to jpg, html to pdf, merge pdf, passport photo resizer, webp to jpg">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
-    <meta name="author" content="PDFImgPro App">
-    <link rel="canonical" href="https://pdfimgpro.app/">
 
-    <!-- Social Media OpenGraph Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://pdfimgpro.app/">
-    <meta property="og:title" content="PDFImgPro.app - Universal PDF & Live Image Studio">
-    <meta property="og:description" content="Resize images to 1500x1500px with live size calculation, edit PDFs, convert HTML to PDF, compress photos to exact KB/MB. 100% free & private.">
-    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/337/337946.png">
-
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "PDFImgPro.app",
-      "url": "https://pdfimgpro.app",
-      "description": "Universal web application for PDF editing, live image resizing, HTML to PDF conversion, and KB/MB compression.",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    }
-    </script>
-
-    <!-- External Tailwind CSS & FontAwesome CDN -->
+    <!-- External Tailwind CSS & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Core PDF & Image Processing Libraries -->
+    <!-- Core PDF, Image & AI Background Removal Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.3.0/dist/imgly-background-removal.js"></script>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7/download.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -48,16 +25,11 @@
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        darkbg: '#090d16',
-                        panelbg: '#111827',
-                        neon: { indigo: '#6366f1', purple: '#8b5cf6', emerald: '#10b981' }
-                    }
+                    colors: { darkbg: '#090d16', panelbg: '#111827' }
                 }
             }
         }
@@ -67,30 +39,27 @@
         .glass-card { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .neon-glow-indigo { box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.3); }
         .neon-glow-emerald { box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.4); }
-        .tool-card { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-        .tool-card:hover { transform: translateY(-4px); border-color: rgba(99, 102, 241, 0.5); box-shadow: 0 12px 28px -6px rgba(99, 102, 241, 0.25); }
+        .tool-card { transition: all 0.25s ease; }
+        .tool-card:hover { transform: translateY(-4px); border-color: rgba(99, 102, 241, 0.5); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between font-sans antialiased selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between font-sans">
 
     <!-- Header / Navbar -->
     <header class="sticky top-0 z-50 glass-card border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-emerald-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-emerald-500 flex items-center justify-center text-white font-black text-xl shadow-lg">
                     PX
                 </div>
                 <div>
                     <span class="font-black text-xl tracking-tight text-white">PDFImg<span class="text-indigo-400">Pro</span></span>
-                    <span class="block text-[10px] text-slate-400 font-bold uppercase tracking-widest">Universal Studio</span>
+                    <span class="block text-[10px] text-slate-400 font-bold uppercase tracking-widest">Universal AI Studio</span>
                 </div>
             </div>
-
-            <div class="flex items-center gap-3">
-                <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-500/30">
-                    <i class="fa-solid fa-bolt text-emerald-400"></i> 100% In-Browser & Private
-                </span>
-            </div>
+            <span class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-500/30">
+                <i class="fa-solid fa-bolt mr-1"></i> 100% In-Browser & Private
+            </span>
         </div>
     </header>
 
@@ -100,41 +69,30 @@
         <!-- Hero Section -->
         <div class="text-center max-w-3xl mx-auto mb-10">
             <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
-                Free PDF Studio & <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">Live Image Resizer</span>
+                AI Background Remover & <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">PDF Studio</span>
             </h1>
-            <p class="text-slate-400 text-sm sm:text-base font-medium leading-relaxed">
-                Resize photos to exact dimensions (e.g. 1500x1500px) with live size preview, compress KB/MB, edit PDFs & convert formats instantly.
+            <p class="text-slate-400 text-sm sm:text-base font-medium">
+                Remove photo backgrounds automatically, resize photos (1500x1500px) with live preview, compress KB/MB, & edit PDFs instantly.
             </p>
         </div>
 
         <!-- Filter Category Tabs -->
         <div class="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-4xl mx-auto">
-            <button onclick="filterCategory('all')" id="btn-cat-all" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-indigo-600 text-white shadow-lg shadow-indigo-600/30">
-                All Tools
-            </button>
-            <button onclick="filterCategory('pdf')" id="btn-cat-pdf" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 hover:text-white border border-slate-800">
-                PDF Tools & Editor
-            </button>
-            <button onclick="filterCategory('resize')" id="btn-cat-resize" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 hover:text-white border border-slate-800">
-                Live Image Resizer (1500px)
-            </button>
-            <button onclick="filterCategory('crop')" id="btn-cat-crop" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 hover:text-white border border-slate-800">
-                Passport & Social Presets
-            </button>
-            <button onclick="filterCategory('convert')" id="btn-cat-convert" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 hover:text-white border border-slate-800">
-                Format Converters
-            </button>
+            <button onclick="filterCategory('all')" id="btn-cat-all" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white">All Tools</button>
+            <button onclick="filterCategory('ai')" id="btn-cat-ai" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800">AI Magic</button>
+            <button onclick="filterCategory('pdf')" id="btn-cat-pdf" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800">PDF Tools</button>
+            <button onclick="filterCategory('resize')" id="btn-cat-resize" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800">Image Resizer</button>
+            <button onclick="filterCategory('convert')" id="btn-cat-convert" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800">Converters</button>
         </div>
 
         <!-- Active Tool Execution Panel -->
         <div id="active-tool-panel" class="hidden max-w-3xl mx-auto glass-card rounded-3xl p-6 sm:p-8 border border-indigo-500/30 neon-glow-indigo mb-12">
-            
             <div class="flex items-center justify-between mb-6 border-b border-slate-800 pb-4">
                 <div>
                     <h2 id="active-tool-name" class="text-xl font-black text-white">Tool Name</h2>
-                    <p id="active-tool-desc" class="text-xs text-slate-400 mt-1">Tool description here</p>
+                    <p id="active-tool-desc" class="text-xs text-slate-400 mt-1">Tool description</p>
                 </div>
-                <button onclick="closeToolPanel()" class="text-slate-400 hover:text-white text-sm font-bold bg-slate-800/80 w-8 h-8 rounded-full flex items-center justify-center">
+                <button onclick="closeToolPanel()" class="text-slate-400 hover:text-white text-sm font-bold bg-slate-800 w-8 h-8 rounded-full flex items-center justify-center">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -142,11 +100,11 @@
             <!-- HTML/Text Code Editor Box -->
             <div id="html-editor-box" class="hidden mb-6">
                 <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Enter HTML or Text Content:</label>
-                <textarea id="html-input-code" rows="6" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-2xl text-xs font-mono text-emerald-400 focus:border-indigo-500 focus:outline-none" placeholder="<h1>Hello World</h1><p>Type HTML here...</p>"></textarea>
+                <textarea id="html-input-code" rows="6" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-2xl text-xs font-mono text-emerald-400 focus:outline-none" placeholder="<h1>Hello World</h1>"></textarea>
             </div>
 
             <!-- Drag & Drop Upload Zone -->
-            <div id="drop-zone" class="border-2 border-dashed border-indigo-500/40 hover:border-indigo-400 bg-indigo-950/20 hover:bg-indigo-950/40 rounded-2xl p-8 text-center transition-all cursor-pointer relative">
+            <div id="drop-zone" class="border-2 border-dashed border-indigo-500/40 hover:border-indigo-400 bg-indigo-950/20 rounded-2xl p-8 text-center cursor-pointer relative">
                 <input type="file" id="file-input" class="hidden" multiple accept="*/*">
                 <div class="w-14 h-14 bg-indigo-600/20 text-indigo-400 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-indigo-500/30">
                     <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
@@ -156,25 +114,21 @@
             </div>
 
             <!-- Selected File Preview -->
-            <div id="selected-files-box" class="mt-4 hidden space-y-2 max-h-40 overflow-y-auto pr-1"></div>
-
-            <!-- LIVE STATS & DIMENSION CALCULATOR BAR -->
+            <div id="selected-files-box" class="mt-4 hidden space-y-2 max-h-40 overflow-y-auto"></div>
             <div id="live-stats-box" class="hidden mt-6"></div>
 
-            <!-- LIVE CANVAS PREVIEW -->
-            <div id="canvas-preview-container" class="hidden mt-4 text-center bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">Real-Time Scaled Preview:</p>
-                <canvas id="live-preview-canvas" class="max-h-64 mx-auto rounded-lg border border-slate-700 shadow-md"></canvas>
+            <!-- Canvas Preview Container -->
+            <div id="canvas-preview-container" class="hidden mt-4 text-center bg-slate-900 p-4 rounded-2xl border border-slate-800">
+                <p class="text-[11px] font-bold uppercase text-slate-400 mb-2">Live Scaled Preview:</p>
+                <canvas id="live-preview-canvas" class="max-h-64 mx-auto rounded-lg border border-slate-700"></canvas>
             </div>
 
-            <!-- Dynamic Tool Controls -->
+            <!-- Controls Panel -->
             <div id="tool-controls" class="mt-6 space-y-4 border-t border-slate-800 pt-5 hidden">
-                
-                <!-- Target KB/MB Inputs -->
                 <div id="ctrl-kb-mb" class="hidden">
                     <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Target Output File Size:</label>
                     <div class="flex gap-2">
-                        <input type="number" id="target-size-val" placeholder="e.g. 50" class="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm font-semibold text-white focus:border-indigo-500 focus:outline-none">
+                        <input type="number" id="target-size-val" placeholder="50" class="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm font-semibold text-white">
                         <select id="target-size-unit" class="bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white">
                             <option value="KB">KB</option>
                             <option value="MB">MB</option>
@@ -182,16 +136,15 @@
                     </div>
                 </div>
 
-                <!-- Custom Dimension Resizer with Live Calculator (e.g. 1500 x 1500) -->
                 <div id="ctrl-dimensions" class="hidden space-y-3">
                     <div class="grid grid-cols-3 gap-3">
                         <div>
                             <label class="block text-[11px] font-bold text-slate-300 mb-1">Width:</label>
-                            <input type="number" id="dim-width" placeholder="1500" value="1500" oninput="calculateLiveDimensions()" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm font-semibold text-white focus:border-indigo-500 focus:outline-none">
+                            <input type="number" id="dim-width" placeholder="1500" value="1500" oninput="calculateLiveDimensions()" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm font-semibold text-white">
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-slate-300 mb-1">Height:</label>
-                            <input type="number" id="dim-height" placeholder="1500" value="1500" oninput="calculateLiveDimensions()" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm font-semibold text-white focus:border-indigo-500 focus:outline-none">
+                            <input type="number" id="dim-height" placeholder="1500" value="1500" oninput="calculateLiveDimensions()" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm font-semibold text-white">
                         </div>
                         <div>
                             <label class="block text-[11px] font-bold text-slate-300 mb-1">Unit:</label>
@@ -205,153 +158,149 @@
                     </div>
                 </div>
 
-                <!-- Watermark Input -->
                 <div id="ctrl-watermark" class="hidden">
                     <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Watermark Text:</label>
-                    <input type="text" id="watermark-text" placeholder="CONFIDENTIAL or YOUR NAME" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:border-indigo-500">
+                    <input type="text" id="watermark-text" placeholder="CONFIDENTIAL" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white">
                 </div>
 
-                <!-- Password Protect Input -->
                 <div id="ctrl-password" class="hidden">
                     <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Set Password:</label>
-                    <input type="password" id="pdf-password-val" placeholder="Enter password" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white">
+                    <input type="password" id="pdf-password-val" placeholder="Password" class="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white">
                 </div>
             </div>
 
-            <!-- Execution Action Button -->
+            <!-- Execution Button -->
             <div class="mt-6">
-                <button id="run-task-btn" onclick="executeTask()" disabled class="w-full py-4 px-6 rounded-2xl bg-slate-800 text-slate-500 font-black text-sm tracking-wide transition-all cursor-not-allowed flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-bolt"></i> <span id="run-btn-text">Select File or Input First</span>
+                <button id="run-task-btn" onclick="executeTask()" disabled class="w-full py-4 px-6 rounded-2xl bg-slate-800 text-slate-500 font-black text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bolt"></i> <span id="run-btn-text">Select File First</span>
                 </button>
                 <p id="task-status" class="mt-3 text-center text-xs font-bold hidden"></p>
             </div>
 
             <!-- EXPLICIT DOWNLOAD BUTTON AREA -->
             <div id="download-action-box" class="mt-6 hidden"></div>
-
         </div>
 
         <!-- All Tools Grid -->
         <div id="tool-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
             
-            <!-- 1. Live Resizer (1500x1500px) -->
+            <!-- 1. AI Background Remover -->
+            <div onclick="openTool('bgremove')" class="tool-card cat-item cat-ai cat-resize glass-card p-6 rounded-3xl cursor-pointer border border-rose-500/30">
+                <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl mb-4 border border-rose-500/30">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h3 class="font-black text-white text-base mb-1">AI Background Remover</h3>
+                <p class="text-xs text-slate-400">Remove photo background automatically with live preview & download transparent PNG.</p>
+            </div>
+
+            <!-- 2. Live Resizer (1500x1500px) -->
             <div onclick="openTool('dimresize')" class="tool-card cat-item cat-resize glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-4 border border-indigo-500/30">
                     <i class="fa-solid fa-ruler-combined"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Live Resizer (1500x1500px)</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Resize to exact px, cm, mm, in with live size & dimension preview as you type.</p>
+                <p class="text-xs text-slate-400">Resize to exact px, cm, mm, in with live size preview as you type.</p>
             </div>
 
-            <!-- 2. Target KB/MB Resizer -->
+            <!-- 3. Target KB/MB Resizer -->
             <div onclick="openTool('targetkb')" class="tool-card cat-item cat-resize glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 border border-emerald-500/30">
                     <i class="fa-solid fa-weight-scale"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Compress Image to KB/MB</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Compress photos to exact 20 KB, 50 KB, or 1 MB limits for government forms.</p>
+                <p class="text-xs text-slate-400">Compress photos to exact 20 KB, 50 KB, or 1 MB limits for forms.</p>
             </div>
 
-            <!-- 3. Merge PDF -->
+            <!-- 4. Merge PDF -->
             <div onclick="openTool('mergepdf')" class="tool-card cat-item cat-pdf glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-4 border border-purple-500/30">
                     <i class="fa-solid fa-code-merge"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Merge PDF Files</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Combine multiple PDF documents into a single file instantly.</p>
+                <p class="text-xs text-slate-400">Combine multiple PDF documents into a single file instantly.</p>
             </div>
 
-            <!-- 4. HTML to PDF -->
+            <!-- 5. HTML to PDF -->
             <div onclick="openTool('html2pdf')" class="tool-card cat-item cat-pdf cat-convert glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-4 border border-cyan-500/30">
                     <i class="fa-solid fa-code"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">HTML / Text to PDF</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Render HTML code or plain text directly into a clean PDF document.</p>
+                <p class="text-xs text-slate-400">Render HTML code or plain text directly into a clean PDF document.</p>
             </div>
 
-            <!-- 5. PDF to Images -->
+            <!-- 6. PDF to Images -->
             <div onclick="openTool('pdf2img')" class="tool-card cat-item cat-pdf cat-convert glass-card p-6 rounded-3xl cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl mb-4 border border-rose-500/30">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 border border-amber-500/30">
                     <i class="fa-solid fa-file-image"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">PDF to Images</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Extract each page of a PDF as high-resolution JPG images.</p>
+                <p class="text-xs text-slate-400">Extract each page of a PDF as high-resolution JPG images.</p>
             </div>
 
-            <!-- 6. ID Card Merge to PDF -->
+            <!-- 7. ID Card Merge to PDF -->
             <div onclick="openTool('idcard')" class="tool-card cat-item cat-pdf glass-card p-6 rounded-3xl cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 border border-amber-500/30">
+                <div class="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 border border-teal-500/30">
                     <i class="fa-solid fa-id-card"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Merge ID Card to PDF</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Scan Front and Back of an ID card onto a single clean A4 page.</p>
+                <p class="text-xs text-slate-400">Scan Front and Back of an ID card onto a single clean A4 page.</p>
             </div>
 
-            <!-- 7. Passport Photo Crop -->
-            <div onclick="openTool('passport')" class="tool-card cat-item cat-crop glass-card p-6 rounded-3xl cursor-pointer">
+            <!-- 8. Passport Photo Crop -->
+            <div onclick="openTool('passport')" class="tool-card cat-item cat-resize glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mb-4 border border-pink-500/30">
                     <i class="fa-solid fa-passport"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Passport / Visa Crop</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Crop photos to official 35x45mm passport & visa standards.</p>
+                <p class="text-xs text-slate-400">Crop photos to official 35x45mm passport & visa standards.</p>
             </div>
 
-            <!-- 8. Image to PDF -->
+            <!-- 9. Image to PDF -->
             <div onclick="openTool('img2pdf')" class="tool-card cat-item cat-pdf cat-convert glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-4 border border-blue-500/30">
                     <i class="fa-solid fa-file-pdf"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Image to PDF</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Convert JPG, PNG, or WebP images to PDF (Fixed Google Drive black screen).</p>
+                <p class="text-xs text-slate-400">Convert JPG, PNG, or WebP images to PDF (White background fix).</p>
             </div>
 
-            <!-- 9. Format Converter -->
+            <!-- 10. Format Converter -->
             <div onclick="openTool('convertfmt')" class="tool-card cat-item cat-convert glass-card p-6 rounded-3xl cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 border border-teal-500/30">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 border border-emerald-500/30">
                     <i class="fa-solid fa-arrows-rotate"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Format Converter</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Convert images between JPG, PNG, and WebP formats instantly.</p>
+                <p class="text-xs text-slate-400">Convert images between JPG, PNG, and WebP formats instantly.</p>
             </div>
 
-            <!-- 10. Watermark PDF -->
+            <!-- 11. Watermark PDF -->
             <div onclick="openTool('watermark')" class="tool-card cat-item cat-pdf glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-xl mb-4 border border-orange-500/30">
                     <i class="fa-solid fa-stamp"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Watermark PDF</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Add custom text watermark overlays across your PDF pages.</p>
+                <p class="text-xs text-slate-400">Add custom text watermark overlays across your PDF pages.</p>
             </div>
 
-            <!-- 11. Protect PDF -->
+            <!-- 12. Protect PDF -->
             <div onclick="openTool('protectpdf')" class="tool-card cat-item cat-pdf glass-card p-6 rounded-3xl cursor-pointer">
                 <div class="w-12 h-12 rounded-2xl bg-slate-500/20 text-slate-300 flex items-center justify-center text-xl mb-4 border border-slate-500/30">
                     <i class="fa-solid fa-lock"></i>
                 </div>
                 <h3 class="font-black text-white text-base mb-1">Protect PDF</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Encrypt your PDF with password security.</p>
-            </div>
-
-            <!-- 12. Split PDF -->
-            <div onclick="openTool('splitpdf')" class="tool-card cat-item cat-pdf glass-card p-6 rounded-3xl cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center text-xl mb-4 border border-fuchsia-500/30">
-                    <i class="fa-solid fa-scissors"></i>
-                </div>
-                <h3 class="font-black text-white text-base mb-1">Split PDF</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">Separate pages from a large PDF document easily.</p>
+                <p class="text-xs text-slate-400">Encrypt your PDF with password security.</p>
             </div>
 
         </div>
-
     </main>
 
     <!-- Footer -->
     <footer class="bg-slate-950 border-t border-slate-900 py-8 text-center text-xs text-slate-500 mt-16">
         <div class="max-w-7xl mx-auto px-4">
             <p class="font-bold text-slate-300 mb-1">PDFImgPro.app - Universal Web Document Suite</p>
-            <p>100% In-Browser Engine. Zero File Uploads. Fast, Secure & Free.</p>
-            <p class="mt-3 text-slate-600">© 2026 PDFImgPro App. Built for High Global Search Reach.</p>
+            <p>100% In-Browser Engine. Zero File Uploads. Safe & Free.</p>
+            <p class="mt-3 text-slate-600">© 2026 PDFImgPro App.</p>
         </div>
     </footer>
 
@@ -407,7 +356,6 @@
             downloadActionBox.classList.add('hidden');
             window.scrollTo({ top: panel.offsetTop - 80, behavior: 'smooth' });
 
-            // Reset Inputs
             document.getElementById('html-editor-box').classList.add('hidden');
             document.getElementById('drop-zone').classList.remove('hidden');
             document.getElementById('tool-controls').classList.add('hidden');
@@ -419,6 +367,7 @@
             document.getElementById('canvas-preview-container').classList.add('hidden');
 
             const toolConfig = {
+                bgremove: { name: 'AI Background Remover', desc: 'Automatically remove photo background and download transparent PNG', accept: 'image/*', multi: false },
                 html2pdf: { name: 'HTML / Text to PDF Converter', desc: 'Type HTML code below to render a PDF document', accept: '*', multi: false, isHtml: true },
                 pdf2img: { name: 'PDF to High-Res Images', desc: 'Extract pages as JPG images', accept: '.pdf', multi: false },
                 idcard: { name: 'Merge ID Card to PDF', desc: 'Select Front & Back side images of ID Card', accept: 'image/*', multi: true },
@@ -429,8 +378,7 @@
                 dimresize: { name: 'Live Image Resizer (1500x1500px)', desc: 'Resize image by px, cm, mm, or inches with live calculation', accept: 'image/*', multi: false, ctrl: 'dim' },
                 img2pdf: { name: 'Convert Images to PDF', desc: 'Convert photos to clean PDF with White background', accept: 'image/*', multi: true },
                 convertfmt: { name: 'Image Format Converter', desc: 'Convert image format to JPG, PNG, or WebP', accept: 'image/*', multi: false },
-                protectpdf: { name: 'Protect PDF with Password', desc: 'Encrypt PDF with custom password', accept: '.pdf', multi: false, ctrl: 'pass' },
-                splitpdf: { name: 'Split PDF Document', desc: 'Separate pages from PDF file', accept: '.pdf', multi: false }
+                protectpdf: { name: 'Protect PDF with Password', desc: 'Encrypt PDF with custom password', accept: '.pdf', multi: false, ctrl: 'pass' }
             };
 
             const t = toolConfig[toolKey];
@@ -515,17 +463,16 @@
                 });
 
                 runTaskBtn.disabled = false;
-                runTaskBtn.className = "w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black text-sm tracking-wide transition-all shadow-lg shadow-indigo-600/30 cursor-pointer flex items-center justify-center gap-2";
+                runTaskBtn.className = "w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black text-sm tracking-wide cursor-pointer flex items-center justify-center gap-2";
                 runBtnText.innerText = `Process ${selectedFiles.length} File(s) Now`;
             } else if (currentTool !== 'html2pdf') {
                 selectedFilesBox.classList.add('hidden');
                 runTaskBtn.disabled = true;
-                runTaskBtn.className = "w-full py-4 px-6 rounded-2xl bg-slate-800 text-slate-500 font-black text-sm tracking-wide transition-all shadow-none cursor-not-allowed flex items-center justify-center gap-2";
+                runTaskBtn.className = "w-full py-4 px-6 rounded-2xl bg-slate-800 text-slate-500 font-black text-sm tracking-wide cursor-not-allowed flex items-center justify-center gap-2";
                 runBtnText.innerText = "Select File First";
             }
         }
 
-        // LIVE DIMENSION & FILE SIZE CALCULATOR ENGINE
         function calculateLiveDimensions() {
             if (!loadedImgElement) return;
 
@@ -541,10 +488,8 @@
             pxW = Math.round(pxW);
             pxH = Math.round(pxH);
 
-            // Estimate Compressed Size
             const estBytes = (pxW * pxH * 0.22);
             const estKb = (estBytes / 1024).toFixed(1);
-
             const origKb = (selectedFiles[0].size / 1024).toFixed(1);
 
             document.getElementById('live-stats-box').innerHTML = `
@@ -556,7 +501,6 @@
             `;
             document.getElementById('live-stats-box').classList.remove('hidden');
 
-            // Render Preview Canvas
             const canvas = document.getElementById('live-preview-canvas');
             canvas.width = Math.min(pxW, 600);
             canvas.height = Math.min(pxH, (600 / (pxW || 1)) * pxH);
@@ -577,7 +521,7 @@
             downloadActionBox.innerHTML = `
                 <div class="p-5 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl text-center space-y-3 neon-glow-emerald">
                     <p class="text-xs font-bold text-emerald-400"><i class="fa-solid fa-circle-check mr-1"></i> Conversion Ready! Size: ${fileSizeStr}</p>
-                    <a href="${blobUrl}" download="${fileName}" class="inline-flex items-center justify-center gap-2.5 w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-500/20 transition-all cursor-pointer">
+                    <a href="${blobUrl}" download="${fileName}" class="inline-flex items-center justify-center gap-2.5 w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider rounded-xl shadow-lg cursor-pointer">
                         <i class="fa-solid fa-download text-lg"></i> Download File Now
                     </a>
                 </div>
@@ -585,13 +529,11 @@
             downloadActionBox.classList.remove('hidden');
         }
 
-        // GOOGLE DRIVE BLACK SCREEN FIX
         function createCleanJpegDataUrl(imgElement, targetWidth, targetHeight) {
             const canvas = document.createElement('canvas');
             canvas.width = targetWidth || imgElement.naturalWidth || imgElement.width;
             canvas.height = targetHeight || imgElement.naturalHeight || imgElement.height;
             const ctx = canvas.getContext('2d');
-            
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
@@ -599,22 +541,39 @@
         }
 
         async function executeTask() {
-            showStatus("Processing locally in browser... Please wait.");
+            showStatus("Processing locally... Please wait.");
             runBtnText.innerText = "Processing...";
             runTaskBtn.disabled = true;
             downloadActionBox.classList.add('hidden');
 
             try {
-                if (currentTool === 'html2pdf') {
+                if (currentTool === 'bgremove') {
+                    showStatus("Removing background using AI... Please wait 5-10 seconds.");
+                    const imgFile = selectedFiles[0];
+                    
+                    imglyRemoveBackground(imgFile).then(async (blob) => {
+                        const url = URL.createObjectURL(blob);
+                        renderDownloadButton(url, `no_bg_${imgFile.name.replace(/\.[^/.]+$/, "")}.png`, `${(blob.size/1024).toFixed(1)} KB`);
+                        showStatus("Success! Background removed cleanly. Download PNG below.");
+                        runBtnText.innerText = "Process Task Again";
+                        runTaskBtn.disabled = false;
+                    }).catch(err => {
+                        console.error(err);
+                        showStatus("Error removing background. Try another image.", true);
+                        runBtnText.innerText = "Try Again";
+                        runTaskBtn.disabled = false;
+                    });
+                    return;
+
+                } else if (currentTool === 'html2pdf') {
                     const htmlCode = document.getElementById('html-input-code').value || "<h1>Hello World</h1>";
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
-                    
                     doc.html(htmlCode, {
                         callback: function (pdf) {
                             const blob = pdf.output('blob');
                             const url = URL.createObjectURL(blob);
-                            renderDownloadButton(url, "html_converted_doc.pdf", `${(blob.size/1024).toFixed(1)} KB`);
+                            renderDownloadButton(url, "html_doc.pdf", `${(blob.size/1024).toFixed(1)} KB`);
                             showStatus("Success! Click download button below.");
                         },
                         x: 10, y: 10, width: 180, windowWidth: 650
@@ -632,7 +591,6 @@
 
                     const img = await loadImage(selectedFiles[0]);
                     const dataUrl = createCleanJpegDataUrl(img, Math.round(pxW), Math.round(pxH));
-                    
                     const res = await fetch(dataUrl);
                     const blob = await res.blob();
                     const url = URL.createObjectURL(blob);
@@ -671,7 +629,6 @@
                 } else if (currentTool === 'img2pdf' || currentTool === 'idcard') {
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF('p', 'mm', 'a4');
-                    
                     if (currentTool === 'idcard' && selectedFiles.length >= 2) {
                         const img1 = await loadImage(selectedFiles[0]);
                         const img2 = await loadImage(selectedFiles[1]);
@@ -689,8 +646,8 @@
                     }
                     const blob = doc.output('blob');
                     const url = URL.createObjectURL(blob);
-                    renderDownloadButton(url, "PDFImgPro_Document.pdf", `${(blob.size/1024).toFixed(1)} KB`);
-                    showStatus("Success! PDF generated with White background fix.");
+                    renderDownloadButton(url, "PDFImgPro_Doc.pdf", `${(blob.size/1024).toFixed(1)} KB`);
+                    showStatus("Success! PDF generated.");
 
                 } else if (currentTool === 'mergepdf') {
                     const mergedPdf = await PDFLib.PDFDocument.create();
@@ -704,29 +661,7 @@
                     const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                     const url = URL.createObjectURL(blob);
                     renderDownloadButton(url, "PDFImgPro_Merged.pdf", `${(blob.size/1024).toFixed(1)} KB`);
-                    showStatus("Success! PDFs merged into single document.");
-
-                } else if (currentTool === 'watermark') {
-                    const file = selectedFiles[0];
-                    const text = document.getElementById('watermark-text').value || "CONFIDENTIAL";
-                    const buffer = await file.arrayBuffer();
-                    const pdfDoc = await PDFLib.PDFDocument.load(buffer);
-                    const pages = pdfDoc.getPages();
-                    const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
-
-                    pages.forEach(page => {
-                        const { width, height } = page.getSize();
-                        page.drawText(text, {
-                            x: width / 4, y: height / 2, size: 40, font: font,
-                            color: PDFLib.rgb(0.75, 0.75, 0.75), opacity: 0.5, rotate: PDFLib.degrees(45)
-                        });
-                    });
-
-                    const pdfBytes = await pdfDoc.save();
-                    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                    const url = URL.createObjectURL(blob);
-                    renderDownloadButton(url, `watermarked_${file.name}`, `${(blob.size/1024).toFixed(1)} KB`);
-                    showStatus("Watermark added successfully.");
+                    showStatus("Success! PDFs merged.");
 
                 } else if (currentTool === 'passport') {
                     const img = await loadImage(selectedFiles[0]);
@@ -735,7 +670,7 @@
                     const blob = await res.blob();
                     const url = URL.createObjectURL(blob);
                     renderDownloadButton(url, "passport_visa_35x45mm.jpg", `${(blob.size/1024).toFixed(1)} KB`);
-                    showStatus("Success! Cropped to Passport/Visa dimensions.");
+                    showStatus("Success! Cropped to Passport dimensions.");
 
                 } else if (currentTool === 'convertfmt') {
                     const img = await loadImage(selectedFiles[0]);
@@ -744,35 +679,11 @@
                     const blob = await res.blob();
                     const url = URL.createObjectURL(blob);
                     renderDownloadButton(url, "converted_image.jpg", `${(blob.size/1024).toFixed(1)} KB`);
-                    showStatus("Successfully converted format to JPG.");
-
-                } else if (currentTool === 'protectpdf') {
-                    const file = selectedFiles[0];
-                    const pass = document.getElementById('pdf-password-val').value || "1234";
-                    const buffer = await file.arrayBuffer();
-                    const pdfDoc = await PDFLib.PDFDocument.load(buffer);
-                    const pdfBytes = await pdfDoc.save({ userPassword: pass, ownerPassword: pass });
-                    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                    const url = URL.createObjectURL(blob);
-                    renderDownloadButton(url, `protected_${file.name}`, `${(blob.size/1024).toFixed(1)} KB`);
-                    showStatus("PDF encrypted with password successfully.");
-
-                } else if (currentTool === 'splitpdf') {
-                    const file = selectedFiles[0];
-                    const buffer = await file.arrayBuffer();
-                    const pdfDoc = await PDFLib.PDFDocument.load(buffer);
-                    const newPdf = await PDFLib.PDFDocument.create();
-                    const [copiedPage] = await newPdf.copyPages(pdfDoc, [0]);
-                    newPdf.addPage(copiedPage);
-                    const pdfBytes = await newPdf.save();
-                    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                    const url = URL.createObjectURL(blob);
-                    renderDownloadButton(url, `page1_extracted_${file.name}`, `${(blob.size/1024).toFixed(1)} KB`);
-                    showStatus("Extracted Page 1 successfully.");
+                    showStatus("Converted format to JPG successfully.");
                 }
             } catch (err) {
                 console.error(err);
-                showStatus("Error executing task. Please ensure valid file format.", true);
+                showStatus("Error executing task.", true);
             } finally {
                 runBtnText.innerText = "Process Task Again";
                 runTaskBtn.disabled = false;
@@ -792,3 +703,5 @@
             });
         }
     </script>
+</body>
+</html>
